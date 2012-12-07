@@ -1,0 +1,368 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%												%%
+%%		PAKETET FSTIL								%%
+%%												%%
+%%		Skrivet av Tomas Lycken, F-08, under 2011				%%
+%%		Senast uppdaterat av Tomas Lycken, F-08, 2011			%%
+%%		Senast uppdaterat av Emil Ringh, F-08, 2011				%%
+%%		Senast uppdaterat av Emil Ringh, F-08, 2012				%%
+%%												%%
+%%		Paketet fstil importerar några paket och gör ett antal nya		%%
+%%		kommandon tillgängliga, samt anpassar dokumentet till		%%
+%%		THS grafiska profil som den såg ut 2011. (Paktetet upp-		%%
+%%		dateras lämpligen när den grafiska profilen gör det).			%%
+%%												%%
+%%		För att kunna använda paketet krävs att dokumentet kom- 		%%
+%%		pileras i XeLaTeX, som bl.a. finns på skolans system, och		%%
+%%		inkluderas i varje godtycklig version av TeX Live-distribu- 		%%
+%%		tionen, samt MiKTeX							%%
+%%												%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Om du sitter och skriver på ett dokument som du testar nya grejer på, kan du ange det här för att göra kompileringen lite lättare
+% Med denna kommentar kan du kompilera den här filen i XeLaTeX, och programmet kommer fatta vilken fil du egentligen syftar på.
+
+% !TEX program = XeLaTeX
+ \ProvidesPackage{fstil}
+
+% ======================== %
+%    	   PAKET SOM ANVÄNDS                     %
+% ======================== %
+%caption:Ger kontroll av figure-captions
+\RequirePackage{caption}
+%array: Mer options för arrays och alignment
+\RequirePackage{array}
+%tabularx: Definierar ett environment, tabularx, som är en modifierad version av tabular
+\RequirePackage{tabularx}
+%color: Tillåter definition av färger och användning av standard färger genom namnangivelser
+\RequirePackage[usenames,dvipsnames]{color}
+% multirow, multicol: Tabellceller som spänner över flera rader/kolumner
+\RequirePackage{multirow}
+\RequirePackage{multicol}
+%titletoc, titlesec: Intällningar på tielsida och tableofcontents samt numrering av sections
+\RequirePackage{titletoc}
+\RequirePackage{titlesec}
+\RequirePackage{enumitem}
+% hyperref: Skapar bokmärken i pdf-filer, gör hänvisningar till länkar, mm
+\RequirePackage[xetex,bookmarks=true,colorlinks=true,linkcolor=headernfooter,urlcolor=headernfooter,linktoc=section,]{hyperref}
+%fontspec: Intsällningar för typsnitt
+\RequirePackage{fontspec}
+%textcase: För att kunna göra UPPERCASE
+%Gör att kommandot \NoCaseChange{} kan användas runt syntax, för att skydda den.
+\RequirePackage{textcase}
+%geometry: Anpassa sidmarginalerna för att använda ett helt A4
+\RequirePackage{geometry}
+%parskipp: Låt styckesbrytning markeras med blankrad istället för indrag
+\RequirePackage[parfill]{parskip}
+%amsfonts: innehåller bl.a. mathfrak, som krävs för att skriva ett Fysik-F
+\RequirePackage{amsfonts}
+%fancyhdr: ger kontroll på sidhuvud och sidfot
+\RequirePackage{fancyhdr}
+%graphicx: hanterar bilder
+\RequirePackage{graphicx}
+%lastpage: för att kunna referera till sista sidan
+\RequirePackage{lastpage}
+%ifthen: för logisk programering med booleans
+\RequirePackage{ifthen}
+%calc: För att räkna! Typ \withof
+\RequirePackage{calc}
+
+% ======================== %
+% 	   INTRODUCERA VARIABLER            %
+% ======================== %
+\newboolean{IsLscape}
+\setboolean{IsLscape}{false} %Har portrait som default
+
+\newboolean{DateTitle}
+\setboolean{DateTitle}{false} %Per standard har man inte med datumet i tideln
+
+% ======================== %
+%     TA HAND OM LOKALA OPTIONS          %
+% ======================== %
+
+%Tar med det angivna datumet på titelsidan och högerjusterar allt
+\DeclareOption{DateOnTitle}{\setboolean{DateTitle}{true}}
+%Ger ett package error om man skickar in fel option
+\DeclareOption*{%
+\PackageError{fstil}{The specified option `\CurrentOption' is not supported! \\ Kolla om du stavat fel eller titta i Guiden fstil.pdf om vilka options som fungerar.}%
+}
+
+% ======================== %
+%     TA HAND OM GLOBALA OPTIONS        %
+% ======================== %
+
+%Sätter andra marginaler om klassen (.cls) laddas med 'landscape'
+\DeclareOption{landscape}{\setboolean{IsLscape}{true}}
+
+%Ger tillgång till all options som klassen (.cls) laddas med
+%Gör också så att alla Options processas
+\ProcessOptions
+
+% ======================== %
+%     INSTÄLLNINGAR FÖR TOC                   %
+% ======================== %
+%Formatering av section
+\titlecontents{section}
+[2.5em]
+{}
+{\contentslabel{2.3em}}
+{\hspace*{-2.3em}}
+{\titlerule*[2pc]{}\contentspage}
+
+%Formatering av subsection
+\titlecontents{subsection}
+[4.5em]
+{}
+{\contentslabel{2.3em}}
+{\hspace*{-2.3em}}
+{\titlerule*[2pc]{}\contentspage}
+
+%Endast \section i toc (inte \subsections, etc.)
+\setcounter{tocdepth}{1}
+
+%Slår av sektionsnumreringen
+\setcounter{secnumdepth}{-2}
+
+%Definierar \ftoc	(fixar färgen också, vill inte ha den grå som andra länkar!)
+\newcommand\ftoc{\pdfbookmark[2]{Innehåll}{toc} \hypersetup{linkcolor=Black} \tableofcontents \hypersetup{linkcolor=headernfooter}  \newpage}
+
+% ======================== %
+%    		 TITELSIDA  		                %
+% ======================== %
+%%%Definierar \ftitlepage
+\newcommand\ftitlepage{
+\thispagestyle{empty}
+\pagecolor{fysik}
+\ifthenelse{\boolean{IsLscape}}
+{% Om sant, förbered för Lscape
+\hspace{-3in}{\makebox[\paperheight][r]{\raisebox{0pt}[10cm]{
+\includegraphics[width=1.5\textheight]{kugghjul}
+}}}
+\vspace{0.2in}
+
+\hspace{-\oddsidemargin}\hspace{-1in}\makebox[\paperwidth][c]{\raisebox{0pt}[0cm][0.5in]{
+
+\colorbox{white}{\makebox[\paperwidth][c]{\raisebox{0pt}[0cm][\paperheight]{
+\begin{minipage}[0]{\textwidth}
+\vspace{1.9in}
+\makeatletter
+\ifthenelse{\boolean{DateTitle}}
+{% Om sant, högerjustera och sätt datumet på framsidan
+\begin{flushright}
+{\headingfont\fontsize{20}{24}\selectfont\bfseries\MakeTextUppercase\@title\par\vspace{0.5cm}  \@date }
+\end{flushright}
+} {% Om det inte är sant, gör som vanligt
+{\headingfont\fontsize{20}{24}\selectfont\bfseries\MakeTextUppercase\@title\par\vspace{0.5cm}}
+}
+\makeatother
+{ \headingfont\fontsize{12}{14} \@fintro }
+\end{minipage}
+}}}
+}}
+} %Lscape versionen end
+{ %Om det inte är Lscape ska det vara Portrait versionen
+\hspace{-\oddsidemargin}\hspace{-1in}{\makebox[\paperwidth][r]{\raisebox{0pt}[14cm]{
+\includegraphics[width=2\textwidth]{kugghjul}
+}}}
+\vspace{0.5in}
+
+\hspace{-\oddsidemargin}\hspace{-1in}\makebox[\paperwidth][c]{\raisebox{0pt}[0cm][0.5in]{
+
+\colorbox{white}{\makebox[\paperwidth][c]{\raisebox{0pt}[0cm][\paperheight]{
+\begin{minipage}[0]{\textwidth}
+\vspace{3in}
+\makeatletter
+\ifthenelse{\boolean{DateTitle}}
+{% Om sant, högerjustera och sätt datumet på framsidan
+\begin{flushright}
+{\headingfont\fontsize{20}{24}\selectfont\bfseries\MakeTextUppercase\@title\par\vspace{0.5cm}  \@date }
+\end{flushright}
+} {% Om det inte är sant, gör som vanligt
+{\headingfont\fontsize{20}{24}\selectfont\bfseries\MakeTextUppercase\@title\par\vspace{0.5cm}}
+}
+\makeatother
+{ \headingfont\fontsize{12}{14} \@fintro }
+\end{minipage}
+}}}
+
+}}
+} %Portrait versionen end
+\newpage
+\pagecolor{White}
+} %%%ftitlepage end
+
+%Definierar \fintro{<Introduktionstext på förstasidan>}
+%Ger ett blankslag om ej definierat i dokumentet
+\makeatletter
+\newcommand\fintro[1]{\def\@fintro{#1} }
+\@ifundefined{@fintro}{\fintro{ } }{}
+\makeatother
+
+
+%========================%
+%	 INSTÄLLNINGAR FÖR FONTER	    %
+%========================%
+% Välj rätt typsnitt till brödtext och rubriker.
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Garamond-Normal}
+\newfontfamily\headingfont{Century Gothic}
+
+% Ställ typsnitt och spacing för rubriker
+\titleformat*{\section}{\headingfont\fontsize{16}{18}\selectfont\bfseries}
+%\titlespacing{\section}{0pt}{*2}{-5pt}
+\titleformat*{\subsection}{\headingfont\fontsize{14}{16}\selectfont}
+
+%\titlespacing{\subsection}{-4pt}{*0}{*1}
+
+\titleformat*{\subsubsection}{\headingfont\itshape}
+\titlespacing{\subsubsection}{0pt}{*2}{-5pt}
+
+%==========================================%
+%    INSTÄLLNINGAR FÖR MARGINALER OCH ANNAN WHITESPACE       %
+%==========================================%
+%Görs automatiskt av paketen "geometry" och "[parfill]{parskip}"
+\ifthenelse{\boolean{IsLscape}}
+{%Ställ om lite marginaler om det är Lscape
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\textheight}{-1cm}
+\addtolength{\oddsidemargin}{-2.5cm}
+}
+{%Annars gör inget
+}
+
+%==========================%
+%   SEKTIONSRELATERADE KOMMANDON      %
+%==========================%
+%Definiera färgen "fysik", enligt stadgarnas CMYK-definition.
+\definecolor{fysik}{cmyk}{0.000, 0.608, 0.831, 0.000}
+
+%Definierar \F  =>  ett snyggt Fysik-F
+\newcommand\F{\ensuremath{\mathfrak{F}}}
+
+%Definierar \noll  =>  nØll, för att kunna skriva nØllan, nØllegasque etc.
+\newcommand\noll{n\O ll}
+
+%Definierar \fkm  =>  fkm*-logga
+\newcommand\fkm{\ensuremath{\mathrm{\raisebox{-0.1ex}{\protect\rotatebox{22}{\textnormal{f}}}\!\raisebox{0.2ex}{\protect\rotatebox{-15}{\textnormal{k}}}\!\textnormal{m}\!^{*}}}}
+
+%Definierar \FN => fn-logga
+\newcommand\FN{\ensuremath{\F_{\!_{{N}}}}}
+
+%Definierar \carlsven => Calle Svensson i överstruken text.
+\newcommand{\carlsven}{\strike{Calle Svensson}}
+
+
+%==========================%
+%      ANDRA ANVÄNDBARA KOMMANDON     %
+%==========================%
+%Definierar \strike{text} => texten i överstruken font
+\newlength{\strilen}
+\newcommand{\strike}[1]{\setlength{\strilen}{\widthof{#1}}
+\mbox{\raisebox{0.5ex}{\protect\rule{\strilen}{0.2ex}}\protect\hspace{-\strilen}#1\ }}
+
+
+%		UNDERSKRIFTER		         %
+%Kommandon för att generera snygga underskrifter
+%\sign{plats}{år}{namn}{titel}
+\newcommand{\sign}[4]{
+\begin{center}
+\begin{tabular}{>{\centering}p{5cm}}
+#1  \tabularnewline
+den \hspace{.5cm}/\hspace{.5cm} #2  \tabularnewline
+\tabularnewline
+\tabularnewline
+\tabularnewline
+\tabularnewline
+#3 \tabularnewline
+#4
+\end{tabular}
+\end{center}}
+
+%\twosign{plats}{år}{namn1}{namn2}{titel1}{titel2}
+\newcommand{\twosign}[6]{
+\begin{center}
+\begin{tabular}{>{\centering}p{4cm}p{5mm}>{\centering}p{4cm}p{5mm}}
+#1 && #1  \tabularnewline
+den \hspace{.5cm}/\hspace{.5cm} #2 && den \hspace{.5cm}/\hspace{.5cm} #2  \tabularnewline
+\tabularnewline
+\tabularnewline
+\tabularnewline
+\tabularnewline
+#3 && #4 \tabularnewline
+#5 && #6
+\end{tabular}
+\end{center}}
+
+%\threesign{plats}{år}{namn1}{namn2}{namn3}{titel1}{titel2}{titel3}
+\newcommand{\threesign}[8]{
+\begin{center}
+\begin{tabular}{>{\centering}p{3.1cm}p{5mm}>{\centering}p{3.1cm}p{5mm}>{\centering}p{3.1cm}}
+#1 && #1 && #1  \tabularnewline
+den \hspace{.5cm}/\hspace{.5cm} #2 && den \hspace{.5cm}/\hspace{.5cm} #2 && den \hspace{.5cm}/\hspace{.5cm} #2 \tabularnewline
+\tabularnewline
+\tabularnewline
+\tabularnewline
+\tabularnewline
+#3 && #4 && #5 \tabularnewline
+#6 && #7 && #8
+\end{tabular}
+\end{center}}
+
+%\foursign{år}{namn1}{namn2}{namn3}{namn4]{titel1}{titel2}{titel3}{titel4}
+%TeX tillåter bara 9 indata, så Stockholm är automatiskt platsen i detta kommando.
+\newcommand{\foursign}[9]{
+\begin{center}
+\begin{tabular}{>{\centering}p{2.7cm}p{5mm}>{\centering}p{2.7cm}p{5mm}>{\centering}p{2.7cm}p{5mm}>{\centering}p{2.7cm}}
+Stockholm && Stockholm && Stockholm && Stockholm \tabularnewline
+den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 \tabularnewline
+\tabularnewline
+\tabularnewline
+\tabularnewline
+\tabularnewline
+#2 && #3 && #4 && #5\tabularnewline
+#6 && #7 && #8 && #9
+\end{tabular}
+\end{center}}
+
+%===============================%
+%    INSTÄLLNINGAR FÖR SIDHUVUD OCH SIDFOT     %
+%===============================%
+\definecolor{headernfooter}{gray}{0.40} %Definierar en gråfärg som är 40% svart,  används i header och footer
+
+\pagenumbering{arabic} % Arabiska siffror i sidnumreringen
+\setlength\headheight{70pt} % Default är 12 pt, men detta passar bra till loggan
+\newlength\logowidth
+\setlength\logowidth{.55\headheight}
+\renewcommand\headrulewidth{0pt}
+
+
+\setlength\headsep{.5\logowidth}
+
+\fancyheadoffset[R]{.7\logowidth}
+\rhead{\raisebox{-0.5\height}{\includegraphics[width=\logowidth]{F_head_logo_noshadow}}}
+
+\makeatletter
+\lhead{\textcolor{headernfooter}{
+\headingfont\textbf{\@title}\\
+\@date\\
+Sid. \thepage~ av { \pageref{LastPage}} }
+\makeatother
+}
+
+\chead{}
+\cfoot{
+\rule{\textwidth}{0.75pt}
+\textcolor{headernfooter}{
+\footnotesize
+\begin{center}
+\begin{tabular}{p{0.25\paperwidth}p{0.15\paperwidth}p{0.15\paperwidth}p{0.15\paperwidth}}
+Postadress: & Organisationsnummer: & Besöksadress: & Hemsida: \\
+ \F ysiksektionen, THS 100 44 Stockholm &   802411-8948 &   Brinellvägen 26A  & { \href{http://www.f.kth.se}{www.f.kth.se} }
+\end{tabular}
+\end{center}
+}
+}
+
+\lfoot{}
+\lfoot{}
+\pagestyle{fancy}
