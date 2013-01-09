@@ -6,7 +6,7 @@
 
 \documentclass[a4paper]{article}
 %Fysiksketionens grafiska profil
-\usepackage{fstil}
+\usepackage[DateOnTitle]{fstil}
 %För att kunna använda bilder
 \usepackage{graphicx}
 %Svenska avstavning
@@ -24,7 +24,7 @@ basicstyle=\footnotesize
 \newcommand{\bs}{\textbackslash}
 
 \title{Introduktion till paketet  \NoCaseChange{\texttt{fstil.sty}} }
-\date{September 2012}
+\date{}
 \author{}
 
 
@@ -50,10 +50,10 @@ Orkar man inte installera paketet räcker det nu med att flytta med filen \textt
 \subsection{Att använda fstil}
 För att använda fstil skriver du helt enkelt \texttt{\bs usepackage\{fstil\}} i början av ditt \TeX-dokument.
 
-För att kompilera dokumentet använder du \textit{XeLaTeX}. Detta kan du göra genom att skriva \\ \texttt{>xelatex MITTDOKUMENT.tex} i terminalen (\textit{XeLaTeX} följer med de flesta \TeX-distributioner).
+För att kompilera dokumentet använder du \textit{XeLaTeX}. Detta kan du göra genom att skriva \\ \texttt{>xelatex MITTDOKUMENT.tex} i terminalen (\textit{XeLaTeX} följer med de flesta \TeX-distributioner) eller välja xelatex i menyn i ditt \TeX-program.
 
 \subsection{Tänk på att}
-Varje dokument behöver en titel, denna sätts med \texttt{\bs title\{TEXT\}} och syns i sidhuvudet. Dessutom förses varje dokument med ett datum, också det i sidhuvudet. Datumet är per automatik den dag du kompilerar dokumentet om du inte sätter det själv med kommandot \texttt{\bs date\{TEXT\}}
+Varje dokument behöver en titel, denna sätts med \texttt{\bs title\{TEXT\}} och syns i sidhuvudet. Dessutom förses varje dokument med ett datum, också det i sidhuvudet. Datumet är per automatik den dag du kompilerar dokumentet om du inte sätter det själv med kommandot \texttt{\bs date\{TEXT\}}. Vill du inte ha datum alls kan du sätta det som \texttt{\bs date\{\}}.
 
 Du får \textbf{\underline{inte}} använda \texttt{\bs usepackage[T1]\{fontenc\}}, då kommer typsnittet att bli fel.
 
@@ -132,6 +132,7 @@ Här kan man skriva mer.
 \item September 2012. Option \texttt{DateOnTitle} tillagt. Fixat en bugg med att \texttt{\bs fkm} inte kunde skrivas i Sections. Skrivet av: Emil Ringh (\F-08)
 \item Oktober 2012. La till kommandona \texttt{\bs fn}, \texttt{\bs twosign}, \texttt{\bs threesign}, \texttt{\bs foursign}. Skrivet av: Emil Ringh (\F-08)
 \item Oktober 2012. La till kommandot \texttt{\bs strike} samt den studentikosa tillämpningen \texttt{\bs carlsven}. Skrivet av: Emil Ringh, (\F-08)
+\item Januari 2013. Nu krävs det inte att man skriver ett datum, anger man istället \texttt{\bs date\{\}} så blir det en tom rad i sidhuvudet. Skrivet av: Emil Ringh, (\F-08)
 \end{itemize}
 
 \clearpage
