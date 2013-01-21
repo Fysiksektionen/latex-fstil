@@ -383,8 +383,10 @@ den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den 
 \iftoggle{HeadIsFancy}{%
 \textcolor{headernfooter}{%
 \headingfont\textbf{\@title}\\
-\@date\\
-Sid. \thepage~ av { \pageref{LastPage}}}%
+\ifthenelse{\equal{\@date}{}}{%Om date är entom sträng, skriv inte den raden
+}{%Annars skriv ut datumet
+\@date\\}
+Sid. \thepage~ av { \pageref{LastPage}} }
 }{}
 }
 \makeatother
