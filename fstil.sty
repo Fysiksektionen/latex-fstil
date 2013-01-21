@@ -44,7 +44,7 @@
 \RequirePackage{titlesec}
 \RequirePackage{enumitem}
 % hyperref: Skapar bokmärken i pdf-filer, gör hänvisningar till länkar, mm
-\RequirePackage[xetex,bookmarks=true,colorlinks=true,linkcolor=headernfooter,urlcolor=headernfooter,linktoc=section,]{hyperref}
+\RequirePackage[bookmarks=true,colorlinks=true,linkcolor=headernfooter,urlcolor=headernfooter,linktoc=section]{hyperref}
 %fontspec: Intsällningar för typsnitt
 \RequirePackage{fontspec}
 %textcase: För att kunna göra UPPERCASE
@@ -62,8 +62,10 @@
 \RequirePackage{graphicx}
 %lastpage: för att kunna referera till sista sidan
 \RequirePackage{lastpage}
-%ifthen: för logisk programering med booleans
+%ifthen/etoolbox: för logisk programering med booleans
+% ifthen är obsolete och ska fasas ut till förmån för etoolbox0
 \RequirePackage{ifthen}
+\RequirePackage{etoolbox}
 %calc: För att räkna! Typ \withof
 \RequirePackage{calc}
 
@@ -76,8 +78,11 @@
 \newboolean{DateTitle}
 \setboolean{DateTitle}{false} %Per standard har man inte med datumet i tideln
 
-\newboolean{BigLogo}
-\setboolean{BigLogo}{false} % Loggan är liten som default
+\newtoggle{BigLogo}
+\togglefalse{BigLogo} % Loggan är liten som default
+
+\newtoggle{HeadIsFancy}
+\toggletrue{HeadIsFancy} % Mycket info i siduvud/sidfot som default
 
 % ======================== %
 %     TA HAND OM LOKALA OPTIONS          %
@@ -86,7 +91,12 @@
 %Tar med det angivna datumet på titelsidan och högerjusterar allt
 \DeclareOption{DateOnTitle}{\setboolean{DateTitle}{true}}
 % Gör loggan uppe i högra hörnet större
-\DeclareOption{BigLogo}{\setboolean{BigLogo}{true}}
+\DeclareOption{BigLogo}{\toggletrue{BigLogo}}
+
+%Ger möjlighet till en mer avskalad sidmall, med mindre info i sidhuvud och sidfot
+\DeclareOption{plain}{%
+\togglefalse{HeadIsFancy}%
+}
 
 %Ger ett package error om man skickar in fel option
 \DeclareOption*{%
@@ -202,6 +212,14 @@
 \makeatletter
 \newcommand\fintro[1]{\def\@fintro{#1} }
 \@ifundefined{@fintro}{\fintro{ } }{}
+\makeatother
+
+\makeatletter
+\renewcommand\maketitle{
+\begin{center}
+\headingfont\huge\selectfont\bfseries\MakeTextUppercase\@title\end{center}
+\vspace{4em}
+}
 \makeatother
 
 
@@ -333,6 +351,7 @@ den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den 
 %===============================%
 %    INSTÄLLNINGAR FÖR SIDHUVUD OCH SIDFOT     %
 %===============================%
+
 \definecolor{headernfooter}{gray}{0.40} %Definierar en gråfärg som är 40% svart,  används i header och footer
 
 \pagenumbering{arabic} % Arabiska siffror i sidnumreringen
@@ -340,11 +359,13 @@ den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den 
 \newlength\logowidth
 \newlength\logoxoffset
 \setlength\logoxoffset{0pt}
-\ifthenelse{\boolean{BigLogo}}
+\addtolength\voffset{-0.5in}
+\iftoggle{BigLogo}
 {
  \setlength\logowidth{\headheight}
  \setlength\headheight{127pt}
  \addtolength\logoxoffset{20pt}
+ \addtolength\textheight{-40pt}
 }
 {
  \setlength\logowidth{.55\headheight}
@@ -355,18 +376,22 @@ den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den 
 \setlength\headsep{.5\logowidth}
 
 \fancyheadoffset[R]{.7\logowidth}
-\rhead{\raisebox{-0.5\height}{\includegraphics[width=\logowidth]{F_head_logo_noshadow}}\hspace{\logoxoffset} }
+\rhead{\raisebox{-0.5\height}{\includegraphics[width=\logowidth]{F_head_logo_noshadow}}\hspace{\logoxoffset}}
 
 \makeatletter
-\lhead{\textcolor{headernfooter}{
+\lhead{%
+\iftoggle{HeadIsFancy}{%
+\textcolor{headernfooter}{%
 \headingfont\textbf{\@title}\\
 \@date\\
-Sid. \thepage~ av { \pageref{LastPage}} }
-\makeatother
+Sid. \thepage~ av { \pageref{LastPage}}}%
+}{}
 }
+\makeatother
 
 \chead{}
 \cfoot{
+\iftoggle{HeadIsFancy}{%
 \rule{\textwidth}{0.75pt}
 \textcolor{headernfooter}{
 \footnotesize
@@ -377,6 +402,7 @@ Postadress: & Organisationsnummer: & Besöksadress: & Hemsida: \\
 \end{tabular}
 \end{center}
 }
+}{}
 }
 
 \lfoot{}
