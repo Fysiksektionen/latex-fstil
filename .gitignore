@@ -34,3 +34,6 @@
 *.fuse_*
 *.hd
 *.ins
+*.sty
+*.pdf
+Readme.md
