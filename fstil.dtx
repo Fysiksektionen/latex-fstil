@@ -1,0 +1,127 @@
+%\iffalse meta-comment
+% !TEX TS-program = XeLaTeX
+% !TEX encoding = utf-8
+%
+%\iffalse meta-comment
+% Copyright (C) 2013 THS Fysiksektionen
+% Authored by: Tomas Lycken (tlycken) and Emil Ringh (eringh)
+% .dtx file based on guide by Joseph Wright at http://www.texdev.net/2009/10/06/a-model-dtx-file/
+%\fi
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+#LaTeX-paket för Fysiksektionens grafiska profil
+
+Användarinstruktioner finns i pdf-filen fstil.pdf.
+
+###Typsnitt
+
+TTF-filer för de typsnitt som behövs finns bland Fysiksektionens övriga LaTeX-relaterade saker (d.v.s. här: https://github.com/Fysiksektionen/latex/tree/master/fonts).
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+
+\preamble
+----------------------------------------------------------------
+fstil --- THS Fysiksektionens grafiska profil
+E-mail: bigmac@f.kth.se
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+
+
+\usedir{tex/latex/fstil}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+
+%<*internal>
+\usedir{source/latex/fstil}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/fstil}
+\generate{
+  \file{README.md}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{\jobname}
+\usepackage[numbered]{hypdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\OnlyDescription
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+
+%
+%\StopEventually{^^A
+%  \PrintChanges
+%  \PrintIndex
+%}
+%
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fstil}[2013/01/26 v2.0 THS Fysiksektionens grafiska profil]
+%</package>
+%
+%\fi
+%\GetFileInfo{\jobname.sty}
+%
+%\changes{v2.0}{2013/01/25}{Första .dtx-versionen av paketet}
+%
+%\title{^^A
+%  \textsf{fstil} --- THS Fysiksektionens grafiska profil\thanks{^^A
+%    Denna fil dokumenterar version \fileversion, senast ändrad \filedate.^^A
+%  }^^A
+%}
+%\author{^^A
+%  Tomas Lycken \\ tlycken@kth.se \and Emil Ringh \\ eringh@kth.se^^A
+%}
+%\date{Publicerad \filedate}
+%
+%\maketitle
+%
+%\section{Paketet fstil}
+%Paketet \textsf{fstil} är utvecklat för att ge Fysiksektionen en grafisk profil.
+%Det ställer om fonten till \textit{Garamond}, ger ett sidhuvud som innehåller sektionens
+%logotyp samt en sektionsrelaterad sidfot. Den grafisk profilen är sådan att den
+%efterliknar THS grafiska profil, fast anpassad till Fysiksektionen. Detta dokument är 
+%skrivet med hjälp av docstrip, och ger ett exempel på hur det kan se ut när man använder
+%paketet \textsf{fstil}.
+%
+%\section{Paket som används}
+%\textsf{fstil} använder sig av funktionalitet från följande paket:
+%\begin{description}
+%\item[\textsf{fontenc}, med option \textsf{T1}] Använder den modernare teckenkodningen T1, vilken t.ex. underlättar för specialtecken som åäö.
+%    \begin{macrocode}
+\RequirePackage[T1]{fontenc}
+%    \end{macrocode}
+%\end{description}
+%\Finale
