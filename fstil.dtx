@@ -118,15 +118,29 @@ See http://www.latex-project.org/lppl.txt
 %
 %\section{Paket som används}
 %
-%\textsf{fstil} använder sig av funktionalitet från följande paket:
+%\textsf{fstil} använder sig av funktionalitet från följande paket, som måste finnas installerade 
 %\begin{description}
 %\item[\textsf{fontenc}, med option \textsf{T1}] Använder den modernare teckenkodningen T1, vilken t.ex. underlättar för specialtecken som åäö.
 %    \begin{macrocode}
 \RequirePackage[T1]{fontenc}
 %    \end{macrocode}
+%
+%\item[\textsf{babel}, med option \textsf{swedish}] Svensk avstavning, datumformat etc.
+%    \begin{macrocode}
+\RequirePackage[swedish]{babel}
+%    \end{macrocode}
+%
+%\item[\textsf{amsmath} och \textsf{amsfonts}] Extra kommandon och fonts från \AmS\ (American Mathematics Society), inkluderar bl.a. \textsf{mathfrak} som används i sektionens logotyper.
+%    \begin{macrocode}
+\RequirePackage{amsmath,amsfonts}
+%    \end{macrocode}
 %\end{description}
 %
-%
-%
-%
+%\section{Sektionsrelaterade kommandon}
+%\begin{macro}{\FN}
+%Fysiksektionens Näringslivsutskott har en logga bestående av ett fraktur-$\mathfrak{F}$ med ett sub-index $N$. Kommandot \cs{\textbackslash FN} ser till att spacing etc. blir korrekt.
+%    \begin{macrocode}
+\newcommand\FN{\ensuremath{\mathfrak{F}_{\!N}}}
+%    \end{macrocode}
+%\end{macro}
 %\Finale
