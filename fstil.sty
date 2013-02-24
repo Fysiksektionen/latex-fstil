@@ -28,6 +28,7 @@
 % ======================== %
 %    	   PAKET SOM ANVÄNDS                     %
 % ======================== %
+\RequirePackage[swedish]{babel}
 %caption:Ger kontroll av figure-captions
 \RequirePackage{caption}
 %array: Mer options för arrays och alignment
@@ -357,6 +358,7 @@ den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den 
 \pagenumbering{arabic} % Arabiska siffror i sidnumreringen
 \setlength\headheight{70pt} % Default är 12 pt, men detta passar bra till loggan
 \newlength\logowidth
+\newlength\logoheight
 \newlength\logoxoffset
 \setlength\logoxoffset{0pt}
 \addtolength\voffset{-0.5in}
@@ -364,11 +366,13 @@ den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den 
 {
  \setlength\logowidth{\headheight}
  \setlength\headheight{127pt}
+ \setlength\logoheight{\headheight}
  \addtolength\logoxoffset{20pt}
  \addtolength\textheight{-40pt}
 }
 {
  \setlength\logowidth{.55\headheight}
+ \setlength\logoheight{\headheight}
 }
 \renewcommand\headrulewidth{0pt}
 
@@ -376,7 +380,9 @@ den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den 
 \setlength\headsep{.5\logowidth}
 
 \fancyheadoffset[R]{.7\logowidth}
-\rhead{\raisebox{-0.5\height}{\includegraphics[width=\logowidth]{F_head_logo_noshadow}}\hspace{\logoxoffset}}
+
+\newcommand\logoname{{F_head_logo_noshadow}}
+\rhead{\raisebox{-0.5\height}{\includegraphics[height=\logoheight]{\logoname}}\hspace{\logoxoffset}}
 
 \makeatletter
 \lhead{%
