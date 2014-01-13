@@ -89,6 +89,9 @@
 \newtoggle{HeadIsFancy}
 \toggletrue{HeadIsFancy} % Mycket info i siduvud/sidfot som default
 
+\newtoggle{ChangeTheFont}
+\toggletrue{ChangeTheFont} %Per standard använder man den font som ingår, kan man inte installera den kan detta vara bra att använda
+
 % ======================== %
 %     TA HAND OM LOKALA OPTIONS          %
 % ======================== %
@@ -97,11 +100,12 @@
 \DeclareOption{DateOnTitle}{\toggletrue{DateTitle}}
 % Gör loggan uppe i högra hörnet större
 \DeclareOption{BigLogo}{\toggletrue{BigLogo}}
-
 %Ger möjlighet till en mer avskalad sidmall, med mindre info i sidhuvud och sidfot
 \DeclareOption{plain}{%
 \togglefalse{HeadIsFancy}%
 }
+%Om man inte vill att fstil ska använda Garamond för att man tex inte kan installera den (MAC har problem med det)
+\DeclareOption{NoFontChange}{\togglefalse{ChangeTheFont}}
 
 \ProcessOptions
 %Ger ett package error om man skickar in fel option
@@ -238,8 +242,11 @@
 %========================%
 % Välj rätt typsnitt till brödtext och rubriker.
 \defaultfontfeatures{Ligatures=TeX}
+\iftoggle{ChangeTheFont}{%Om man ska ändra fonten, gör det!
 \setmainfont{Garamond-Normal}
-\newfontfamily\headingfont{Century Gothic}
+\newfontfamily\headingfont{Century Gothic}}
+{%Om man inte ska ändra fonten, definiera i alla fall upp \headingfont
+\newfontfamily\headingfont{Latin Modern Roman}}
 
 % Ställ typsnitt och spacing för rubriker
 \titleformat*{\section}{\headingfont\fontsize{16}{18}\selectfont\bfseries}
