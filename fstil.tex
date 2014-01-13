@@ -92,8 +92,14 @@ fstil är inställt för att jobba med dokument encodade med \textit{utf8}. Se t
 \section{Options i fstil}
 Ett paket kan laddas med olika options, vilket görs när du deklarerar att du vill använda paketet:\\ \texttt{$\bs$usepackage[ettOption,ettAnnatOption]\{fstil\}}. De options som fstil kan hantera är:
 \begin{itemize}
-\item \texttt{landscape} sätter om marginalerna och fixar titelsidan så att det blir snyggt på ett liggande dokument. \textbf{OBS:} Behöver inte laddas explicit, görs automatiskt om kommandot ges när du laddar dokumentklassen \texttt{$\bs$documentclass[a4paper,landscape]\{article\}}. Kan dock göras manuelt om man vill
+\item \texttt{BigLogo} gör loggan i sidhuvudet mycket större.
+
 \item \texttt{DateOnTitle} ser till att datumet läggs till på framsidan. Datumet får en egen rad och allt blir högerjusterat. Blir snyggast ihop med långa titlar som \textit{Verksamhetsberättelse Fysiksektionen} eller \textit{Halvårsrapport Fysiksektionen}.
+
+\item \texttt{landscape} sätter om marginalerna och fixar titelsidan så att det blir snyggt på ett liggande dokument. \textbf{OBS:} Behöver inte laddas explicit, görs automatiskt om kommandot ges när du laddar dokumentklassen \texttt{$\bs$documentclass[a4paper,landscape]\{article\}}. Kan dock göras manuelt om man vill.
+
+
+\item \texttt{plain} tar bort all text i sidhuvud/sidfot.
 \end{itemize}
 
 \section{Ett exempel}
@@ -133,6 +139,7 @@ Här kan man skriva mer.
 \item Oktober 2012. La till kommandona \texttt{\bs fn}, \texttt{\bs twosign}, \texttt{\bs threesign}, \texttt{\bs foursign}. Skrivet av: Emil Ringh (\F-08)
 \item Oktober 2012. La till kommandot \texttt{\bs strike} samt den studentikosa tillämpningen \texttt{\bs carlsven}. Skrivet av: Emil Ringh, (\F-08)
 \item Januari 2013. Nu krävs det inte att man skriver ett datum, anger man istället \texttt{\bs date\{\}} så blir det en tom rad i sidhuvudet. Skrivet av: Emil Ringh, (\F-08)
+\item Januari 2013.  Options \texttt{plain} och \texttt{BigLogo} tillagda. Skrivet av: Tomas Lycken, (\F-08)
 \end{itemize}
 
 \clearpage

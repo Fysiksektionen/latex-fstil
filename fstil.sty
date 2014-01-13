@@ -6,6 +6,9 @@
 %%		Senast uppdaterat av Tomas Lycken, F-08, 2011			%%
 %%		Senast uppdaterat av Emil Ringh, F-08, 2011				%%
 %%		Senast uppdaterat av Emil Ringh, F-08, 2012				%%
+%%		Senast uppdaterat av Emil Ringh, F-08, 2013				%%
+%%		Senast uppdaterat av Tomas Lycken, F-08, 2013			%%
+%%		Senast uppdaterat av Emil Ringh, F-08, 2014				%%
 %%												%%
 %%		Paketet fstil importerar några paket och gör ett antal nya		%%
 %%		kommandon tillgängliga, samt anpassar dokumentet till		%%
@@ -28,6 +31,7 @@
 % ======================== %
 %    	   PAKET SOM ANVÄNDS                     %
 % ======================== %
+%babel: Ger svensk avstavning som standard
 \RequirePackage[swedish]{babel}
 %caption:Ger kontroll av figure-captions
 \RequirePackage{caption}
@@ -64,8 +68,8 @@
 %lastpage: för att kunna referera till sista sidan
 \RequirePackage{lastpage}
 %ifthen/etoolbox: för logisk programering med booleans
-% ifthen är obsolete och ska fasas ut till förmån för etoolbox0
-\RequirePackage{ifthen}
+% ifthen är obsolete och ska fasas ut till förmån för etoolbox
+%\RequirePackage{ifthen}
 \RequirePackage{etoolbox}
 %calc: För att räkna! Typ \withof
 \RequirePackage{calc}
@@ -73,11 +77,11 @@
 % ======================== %
 % 	   INTRODUCERA VARIABLER            %
 % ======================== %
-\newboolean{IsLscape}
-\setboolean{IsLscape}{false} %Har portrait som default
+\newtoggle{IsLscape}
+\togglefalse{IsLscape} %Har portrait som default
 
-\newboolean{DateTitle}
-\setboolean{DateTitle}{false} %Per standard har man inte med datumet i tideln
+\newtoggle{DateTitle}
+\togglefalse{DateTitle} %Per standard har man inte med datumet i tideln
 
 \newtoggle{BigLogo}
 \togglefalse{BigLogo} % Loggan är liten som default
@@ -90,7 +94,7 @@
 % ======================== %
 
 %Tar med det angivna datumet på titelsidan och högerjusterar allt
-\DeclareOption{DateOnTitle}{\setboolean{DateTitle}{true}}
+\DeclareOption{DateOnTitle}{\toggletrue{DateTitle}}
 % Gör loggan uppe i högra hörnet större
 \DeclareOption{BigLogo}{\toggletrue{BigLogo}}
 
@@ -99,6 +103,7 @@
 \togglefalse{HeadIsFancy}%
 }
 
+\ProcessOptions
 %Ger ett package error om man skickar in fel option
 \DeclareOption*{%
 \PackageError{fstil}{The specified option `\CurrentOption' is not supported! \\ Kolla om du stavat fel eller titta i Guiden fstil.pdf om vilka options som fungerar.}%
@@ -109,7 +114,7 @@
 % ======================== %
 
 %Sätter andra marginaler om klassen (.cls) laddas med 'landscape'
-\DeclareOption{landscape}{\setboolean{IsLscape}{true}}
+\DeclareOption{landscape}{\toggletrue{IsLscape}}
 
 %Ger tillgång till all options som klassen (.cls) laddas med
 %Gör också så att alla Options processas
@@ -150,7 +155,7 @@
 \newcommand\ftitlepage{
 \thispagestyle{empty}
 \pagecolor{fysik}
-\ifthenelse{\boolean{IsLscape}}
+\iftoggle{IsLscape}
 {% Om sant, förbered för Lscape
 \hspace{-3in}{\makebox[\paperheight][r]{\raisebox{0pt}[10cm]{
 \includegraphics[width=1.5\textheight]{kugghjul}
@@ -163,16 +168,18 @@
 \begin{minipage}[0]{\textwidth}
 \vspace{1.9in}
 \makeatletter
-\ifthenelse{\boolean{DateTitle}}
+\iftoggle{DateTitle}
 {% Om sant, högerjustera och sätt datumet på framsidan
 \begin{flushright}
-{\headingfont\fontsize{20}{24}\selectfont\bfseries\MakeTextUppercase\@title\par\vspace{0.5cm}  \@date }
+{
+\headingfont\fontsize{20}{24}\selectfont\bfseries\MakeTextUppercase\@title\par\vspace{0.5cm} \ifdefstring{\@date}{}{}{\@date\par\vspace{0.5cm}}
+}
 \end{flushright}
 } {% Om det inte är sant, gör som vanligt
 {\headingfont\fontsize{20}{24}\selectfont\bfseries\MakeTextUppercase\@title\par\vspace{0.5cm}}
 }
-\makeatother
 { \headingfont\fontsize{12}{14} \@fintro }
+\makeatother
 \end{minipage}
 }}}
 }}
@@ -189,10 +196,12 @@
 \begin{minipage}[0]{\textwidth}
 \vspace{3in}
 \makeatletter
-\ifthenelse{\boolean{DateTitle}}
+\iftoggle{DateTitle}
 {% Om sant, högerjustera och sätt datumet på framsidan
 \begin{flushright}
-{\headingfont\fontsize{20}{24}\selectfont\bfseries\MakeTextUppercase\@title\par\vspace{0.5cm}  \@date }
+{
+\headingfont\fontsize{20}{24}\selectfont\bfseries\MakeTextUppercase\@title\par\vspace{0.5cm}  \ifdefstring{\@date}{}{}{\@date \par\vspace{0.5cm}}
+}
 \end{flushright}
 } {% Om det inte är sant, gör som vanligt
 {\headingfont\fontsize{20}{24}\selectfont\bfseries\MakeTextUppercase\@title\par\vspace{0.5cm}}
@@ -246,11 +255,11 @@
 %    INSTÄLLNINGAR FÖR MARGINALER OCH ANNAN WHITESPACE       %
 %==========================================%
 %Görs automatiskt av paketen "geometry" och "[parfill]{parskip}"
-\ifthenelse{\boolean{IsLscape}}
+\iftoggle{IsLscape}
 {%Ställ om lite marginaler om det är Lscape
-\addtolength{\textwidth}{4.5cm}
-\addtolength{\textheight}{-1cm}
-\addtolength{\oddsidemargin}{-2.5cm}
+%\addtolength{\textwidth}{4.5cm}
+%\addtolength{\textheight}{-1cm}
+%\addtolength{\oddsidemargin}{-2.5cm}
 }
 {%Annars gör inget
 }
@@ -389,7 +398,7 @@ den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den 
 \iftoggle{HeadIsFancy}{%
 \textcolor{headernfooter}{%
 \headingfont\textbf{\@title}\\
-\ifthenelse{\equal{\@date}{}}{%Om date är entom sträng, skriv inte den raden
+\ifdefstring{\@date}{}{%Om @date är en tom sträng, skriv inte den raden
 }{%Annars skriv ut datumet
 \@date\\}
 Sid. \thepage~ av { \pageref{LastPage}} }
