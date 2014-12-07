@@ -6,7 +6,7 @@
 
 \documentclass[a4paper]{article}
 %Fysiksketionens grafiska profil
-\usepackage[DateOnTitle]{fstil}
+\usepackage{fstil}
 %För att kunna använda bilder
 \usepackage{graphicx}
 %Svenska avstavning
@@ -25,7 +25,7 @@ basicstyle=\footnotesize
 
 \title{Introduktion till paketet  \NoCaseChange{\texttt{fstil.sty}} }
 \date{}
-\author{}
+\author{Fysiksektionen}
 
 
 \begin{document}
@@ -36,15 +36,24 @@ basicstyle=\footnotesize
 Paketet \texttt{fstil.sty} är utvecklat för att ge \F ysiksektionen en grafisk profil. Det ställer om fonten till \textit{Garamond}, ger ett sidhuvud som innehåller sektionens logotyp samt en sektionsrelaterad sidfot. Den grafisk profilen är sådan att den efterliknar THS grafiska profil, fast anpassad till \F ysiksektionen. Detta dokument är skrivet med hjälp av fstil.
 
 \subsection{Installera fstil}
-Börja med att installera de medföljande typsnitten på din dator:
+För att köra fstil behöver man ha rätt teckensnitt installerade på sin datorn. Saknar man dessa inte kan man hitta dem här: \href{https://github.com/Fysiksektionen/latex/tree/master/fonts}{https://github.com/Fysiksektionen/latex/tree/master/fonts}
+Det går även att köra utan rätt teckensnitt om man använder sig av option \texttt{NoFontChange}, inte att rekommendera men det fungerar.
+
+Installera typsnitten på din dator:
 \begin{itemize}
-\item[] Windows: Öppna kontrollpanelen, gå till \textit{Teckensnitt} och dra in de medföljande .TTF-erna.
+\item[] Windows: Öppna kontrollpanelen, gå till \textit{Teckensnitt}/\textit{Fonts} och dra in .TTF-erna. Alternativt dubbelklicka på dem och tryck \textit{installera}/\textit{install} uppe till höger.
 \item[] Ubuntu:
+\item[] Mac:
 \end{itemize}
+
 
 Orkar man inte installera paketet räcker det nu med att flytta med filen \texttt{fstil.sty} samt de medföljande bilderna till den map man har dokumentet man önskar kompilera. Om du ska använda det mer än en gång rekommenderas dock att du installerar det:
 \begin{itemize}
-\item[] MikTeX: Följ länkarna för \href{http://docs.miktex.org/faq/maintenance.html#styfiles}{kortare} och \href{http://docs.miktex.org/manual/localadditions.html}{längre} instruktioner.
+\item[] MikTeX: Följ länkarna för \href{http://docs.miktex.org/faq/maintenance.html#styfiles}{kortare} och \href{http://docs.miktex.org/manual/localadditions.html}{längre} instruktioner. I korthet: \begin{itemize}
+\item Skapa en map där du vill ha dina \TeX-paket, förslagsvis under \textit{Documents} eller liknande
+\item I den mappen skapar du katalogträdet \textit{fstil/tex/xelatex}, där du lägger \texttt{fstil.sty} och medföljande bilder m.m. i \textit{xelatex}
+\item Gå till MikTeX \textit{Settings}, välj fliken \textit{roots} och lägg till mappen \textit{fstil}. Gå sedan tillbaka till fliken \textit{General} och välj \textit{Refresh FNDB}
+\end{itemize}
 \end{itemize}
 
 \subsection{Att använda fstil}
