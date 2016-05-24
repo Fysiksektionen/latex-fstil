@@ -36,7 +36,7 @@ basicstyle=\footnotesize
 Paketet \texttt{fstil.sty} är utvecklat för att ge \F ysiksektionen en grafisk profil. Det ställer om fonten till \textit{Garamond}, ger ett sidhuvud som innehåller sektionens logotyp samt en sektionsrelaterad sidfot. Den grafisk profilen är sådan att den efterliknar THS grafiska profil, fast anpassad till \F ysiksektionen. Detta dokument är skrivet med hjälp av fstil.
 
 \subsection{Installera fstil}
-För att köra fstil behöver man ha rätt teckensnitt installerade på sin datorn. Saknar man dessa inte kan man hitta dem här: \href{https://github.com/Fysiksektionen/latex/tree/master/fonts}{https://github.com/Fysiksektionen/latex/tree/master/fonts}
+För att köra fstil behöver man ha rätt teckensnitt installerade på sin datorn. Saknar man dessa kan man hitta dem här: \href{https://github.com/Fysiksektionen/latex/tree/master/fonts}{https://github.com/Fysiksektionen/latex/tree/master/fonts}
 Det går även att köra utan rätt teckensnitt om man använder sig av option \texttt{NoFontChange}, inte att rekommendera men det fungerar.
 
 Installera typsnitten på din dator:
@@ -96,6 +96,13 @@ fstil är inställt för att jobba med dokument encodade med \textit{utf8}. Se t
 }
 \item \texttt{\bs threesign\{plats\}\{år\}\{namn1\}\{namn2\}\{namn3\}\{titel1\}\{titel2\}\{titel3\}} ger en underskrift från tre personer (som den brukar se ut på protokoll från STYM).
 \item \texttt{\bs foursign\{år\}\{namn1\}\{namn2\}\{namn3\}\{namn4\}\{titel1\}\{titel2\}\{titel3\}\{titel4\}} ger en underskrift från fyra personer (som den brukar se ut på tex verksamhetsberättelser). (Stockholm är angivet som plats på grund av begränsingar i \TeX).
+\item \texttt{\bs attest\{namn1 \& titel\}\{namn2 \& titel\}} ger sakattest och ekonomisk attest till verifikationer.
+\item \texttt{\bs verifikat\{Nämnd\}} ger början på ett verifikat (verifikationsnummer och -datum samt bokföringsdatum).
+\item \texttt{\bs utlägg\{Nämnd\}} ger början på en utläggsverifikation (de fem raderna samt det \bs verifikat{} gör).
+\item \texttt{\bs ekostart} ger översta raden i tabellen (Kontonamn, kontonummer, KS, Projekt, Debet, Kredit).
+\item \texttt{\bs ekorad\{Kontonamn\}\{kontonummer\}} ger en rad i tabellen med valt kontonamn och kontonummer.
+\item \texttt{\bs ekoslut} avslutar tabellen och lägger till total. Observera att både \bs ekostart och \bs ekoslut båda behövs, annars kommer det generera ett felmeddelande.
+\item \texttt{\bs textrad\{text\}} ger en rad med valfri text och avstånd.
 \end{itemize}
 
 \section{Options i fstil}
@@ -152,6 +159,7 @@ Här kan man skriva mer.
 \item Januari 2013.  Options \texttt{plain} och \texttt{BigLogo} tillagda. Skrivet av: Tomas Lycken, (\F-08)
 \item Januari 2014. Options \texttt{NoFontChange} tillagt. Skrivet av: Emil Ringh, (\F-08)
 \item November 2015. Bytte adress till där Konsulatet faktiskt ligger. Skrivet av: Emil Ringh, (\F-08)
+\item Maj 2016. Kommandon som rör verifikat och ekonomi:  \texttt{\bs attes}, \texttt{\bs verifikat}, \texttt{\bs utlägg}, \texttt{\bs ekostart}, \texttt{\bs ekorad}, \texttt{\bs ekoslut}, \texttt{\bs textrad}. Skrivet av: Mårten Vuorinen, (\F-12)
 \end{itemize}
 
 \clearpage

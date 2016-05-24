@@ -9,6 +9,7 @@
 %%		Senast uppdaterat av Emil Ringh, F-08, 2013				%%
 %%		Senast uppdaterat av Tomas Lycken, F-08, 2013			%%
 %%		Senast uppdaterat av Emil Ringh, F-08, 2014				%%
+%%		Senast uppdaterat av Mårten Vuorinen, F-12, 2016			%%
 %%												%%
 %%		Paketet fstil importerar några paket och gör ett antal nya		%%
 %%		kommandon tillgängliga, samt anpassar dokumentet till		%%
@@ -364,6 +365,69 @@ den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den 
 #6 && #7 && #8 && #9
 \end{tabular}
 \end{center}}
+
+%\attest{namn och titel för sakattest}{namn och titel för ekonomisk attest} skapar raderna för attestering
+\newcommand{\attest}[2]{
+\begin{tabular}{p{6.2cm}p{1cm}p{6.2cm}}
+Sakattest & & Ekonomisk attest\\
+\tabularnewline
+\tabularnewline
+\vspace{1.5cm} \\
+\rule{6.3cm}{0.5pt} & & \rule{6.3cm}{0.5pt} \\
+{\small #1} & & {\small #2}
+\end{tabular}}
+
+%\verifikat{beskrivning} lägger till bokförings- och verifikationsdatum, samt verifikationsnummer. Beskrivning är t.ex. nämnd 
+\newcommand{\verifikat}[1]{
+\begin{Large}{\bf VERIFIKATION} - #1\end{Large}\\\\
+%\flushleft
+\vspace{0.5cm}
+\begin{tabular}{llp{8mm}ll}
+Verifikationsnummer:&\rule[-.4\baselineskip]{1.8cm}{.5pt}&&Verifikationsdatum:&\rule[-.4\baselineskip]{2.5cm}{.5pt}\\
+\\
+&&&Bokföringsdatum:&\rule[-.4\baselineskip]{2.5cm}{.5pt}\\
+\end{tabular}}
+
+%\utlägg{beskrivning} skapar grunden för ett utläggsverifikat
+\newcommand{\utlägg}[1]{
+\verifikat{#1}\\
+\textrad{Namn}\\
+\textrad{Konto (inkl clearingnr):}\\
+\textrad{Bank:}\\
+\textrad{Belopp:}\\
+\textrad{Beskrivning:}\\
+\textrad{}\\
+\textrad{}\\
+Fyll i de fem rubrikerna ovan $\&$ fäst kvittot/fakturan synligt på baksidan.}
+
+%\textrad{text} ger texten på raden
+\newcommand{\textrad}[1]{
+{\renewcommand{\arraystretch}{2}
+\begin{tabular}{p{0.67\paperwidth}}
+\large{#1}\\
+\hline
+\end{tabular}}}
+
+
+%\ekostart börjar tabellen med bokföringskonton, RS samt Kredit och debet. 
+\newcommand{\ekostart}{\begin{tabular}{|p{6.7cm}|p{.8cm}|p{.4cm}|p{1cm}|p{1.6cm}|p{1.6cm}|}
+    \hline
+        \large{Kontonamn} &\small{Konto}& \small{RS} & \small{Projekt} & \large{Debet} & \large{Kredit} \\
+    \hline}
+    
+%\ekorad{kontonamn}{kontonummer} skapar en rad
+\newcommand{\ekorad}[2]{
+\hline
+#1&#2& & & & \\}
+
+%\ekoslut avslutar tabellen och lägger till total
+\newcommand{\ekoslut}{\hline
+        \multicolumn{4}{|r|}{\raisebox{-1pt}{TOTALT}} & \vspace{.6\baselineskip} & \\
+    \hline
+  \end{tabular}}
+
+
+
 
 %===============================%
 %    INSTÄLLNINGAR FÖR SIDHUVUD OCH SIDFOT     %
