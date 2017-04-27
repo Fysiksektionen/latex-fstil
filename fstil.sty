@@ -3,13 +3,14 @@
 %%		PAKETET FSTIL								%%
 %%												%%
 %%		Skrivet av Tomas Lycken, F-08, under 2011				%%
-%%		Senast uppdaterat av Tomas Lycken, F-08, 2011			%%
+%%		Senast uppdaterat av Tomas Lycken, F-08, 2011				%%
 %%		Senast uppdaterat av Emil Ringh, F-08, 2011				%%
 %%		Senast uppdaterat av Emil Ringh, F-08, 2012				%%
 %%		Senast uppdaterat av Emil Ringh, F-08, 2013				%%
-%%		Senast uppdaterat av Tomas Lycken, F-08, 2013			%%
+%%		Senast uppdaterat av Tomas Lycken, F-08, 2013				%%
 %%		Senast uppdaterat av Emil Ringh, F-08, 2014				%%
 %%		Senast uppdaterat av Mårten Vuorinen, F-12, 2016			%%
+%%		Senast uppdaterat av Johan Engvall, F-07, 2017			%%
 %%												%%
 %%		Paketet fstil importerar några paket och gör ett antal nya		%%
 %%		kommandon tillgängliga, samt anpassar dokumentet till		%%
@@ -70,10 +71,12 @@
 \RequirePackage{lastpage}
 %ifthen/etoolbox: för logisk programering med booleans
 % ifthen är obsolete och ska fasas ut till förmån för etoolbox
-%\RequirePackage{ifthen}
+\RequirePackage{ifthen}
 \RequirePackage{etoolbox}
 %calc: För att räkna! Typ \withof
 \RequirePackage{calc}
+%amsmath,amssymb: Matematiksymboler
+\RequirePackage{amsmath,amssymb}
 
 % ======================== %
 % 	   INTRODUCERA VARIABLER            %
@@ -366,6 +369,10 @@ den \hspace{.5cm}/\hspace{.5cm} #1 && den \hspace{.5cm}/\hspace{.5cm} #1 && den 
 \end{tabular}
 \end{center}}
 
+%==========================%
+%      Kommandon för verifikationer     %
+%==========================%
+
 %\attest{namn och titel för sakattest}{namn och titel för ekonomisk attest} skapar raderna för attestering
 \newcommand{\attest}[2]{
 \begin{tabular}{p{6.2cm}p{1cm}p{6.2cm}}
@@ -427,6 +434,59 @@ Fyll i de fem rubrikerna ovan $\&$ fäst kvittot/fakturan synligt på baksidan.}
   \end{tabular}}
 
 
+%==========================%
+%      Kommandon för motioner     %
+%==========================%
+
+\newcommand{\biggerskip}
+    {
+    \vskip 1cm
+    }
+
+\newcommand{\yrkande}[1]{\begin{itemize}#1\end{itemize}}
+
+\newcommand{\att}[1]{{\bfseries $\text{att}_{#1}$}}
+
+\newcounter{count}
+\setcounter{count}{0}
+\newcommand{\attsats}{\addtocounter{count}{1} \item [{\bfseries $\text{att}_{\arabic{count}}$}]}
+
+\newcommand{\signatur}{
+  \ifthenelse{\equal{\group}{}}
+{} %Om \group är tom, skriv inget
+{\group\ genom
+\biggerskip} % annars skriv ut vilken grupp det är
+
+  \begin{tabular}[t]{c}
+  	\name
+  \end{tabular}
+}
+
+\newcommand{\motion}{
+\title{\rubrik}
+\date{\smdate}
+\author{Fysiksektionen, THS}
+\begin{document}
+\thispagestyle{fancy}
+
+\section{\typ\ till SM\smnr\ \smdate}
+
+\subsection{\rubrik}
+
+\subsubsection{Bakgrund}
+\bakgrund
+
+\subsubsection{\typ}
+\iorwe\ yrkar därför på:
+
+\yrkande{
+  \attsatser
+}
+\bigskip
+\signatur
+
+\end{document}
+}
 
 
 %===============================%
