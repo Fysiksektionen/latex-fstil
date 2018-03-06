@@ -80,7 +80,7 @@ fstil är inställt för att jobba med dokument encodade med \textit{utf8}. Se t
 
 \subsection{Speciellt för fstil}
 \begin{itemize}
-\item \texttt{\bs ftitlepage} skapar en första sida. Den ser lika dan ut som till detta dokument och innehållet titeln samt en text som definieras av kommandot nedan.
+\item \texttt{\bs ftitlepage} skapar en första sida. Den ser lika dan ut som till detta dokument och innehållet titeln samt en text som definieras av kommandot nedan. Om en vill ha en egen bild på första sidan används \texttt{\bs ftitlepage[BILD.EXT]}.
 \item \texttt{\bs fintro\{TEXT\}} definierar det som ska stå på förstasidan. Tänk på att inte göra denna text för lång.
 \item \texttt{\bs ftoc} ger en innehållsförteckning (på egen sida).
 \item \texttt{\bs F} producerar ett \F.
@@ -117,6 +117,11 @@ Ett paket kan laddas med olika options, vilket görs när du deklarerar att du v
 \item \texttt{NoFontChange} behåller standardfonten Latin Modern Roman genom hela dokumentet. Användbart om man har problem med att installera någon av fonterna som används av fstil i normala fall, då Latin Modern Roman är standardfonten.
 
 \item \texttt{plain} tar bort all text i sidhuvud/sidfot.
+
+\item \texttt{NoPageNumbering} tar bort sidnumreringen i sidhuvudet.
+
+\item \texttt{fkm} gör om dokumentet enligt \fkm s grafiska profil.
+
 \end{itemize}
 
 \section{Ett exempel}
@@ -161,6 +166,11 @@ Här kan man skriva mer.
 \item November 2015. Bytte adress till där Konsulatet faktiskt ligger. Skrivet av: Emil Ringh, (\F-08)
 \item Maj 2016. Kommandon som rör verifikat och ekonomi:  \texttt{\bs attes}, \texttt{\bs verifikat}, \texttt{\bs utlägg}, \texttt{\bs ekostart}, \texttt{\bs ekorad}, \texttt{\bs ekoslut}, \texttt{\bs textrad}. Skrivet av: Mårten Vuorinen, (\F-12)
 \item September 2016. Bytte adress till där Konsulatet faktiskt ligger (flyttat igen!). Skrivet av: Emil Ringh, (\F-08)
+\item April 2017. La till kommandon för motioner. Skrivet av: Johan Engvall, (\F-07)
+\item Maj 2017. La till option att ta bort sidnumrering i sidhuvudet. Skrivet av Anton Lu, (\F-15)
+\item Mars 2018. La till möjligheten att välja egen bild till titelsidan (\texttt{\bs ftitlepage[kugghjul.pdf]}). Skrivet av: Gustav Gybäck, (\F-15)
+\item Mars 2018. La till \fkm s grafisa profil. Skrivet av: Gustav Gybäck, (\F-15)
+\item Mars 2018. Flyttade ner det vänstra sidhuvudet i \texttt{landscape} så att titeln inte ligger på kanten. Skriven av: Gustav Gybäck, (\F-15)
 \end{itemize}
 
 \clearpage
