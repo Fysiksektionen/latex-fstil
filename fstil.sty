@@ -11,6 +11,7 @@
 %%		Senast uppdaterat av Emil Ringh, F-08, 2014				%%
 %%		Senast uppdaterat av Mårten Vuorinen, F-12, 2016			%%
 %%		Senast uppdaterat av Johan Engvall, F-07, 2017			%%
+%%		Senast uppdaterat av Anton Lu, F-15, 2017				%%
 %%												%%
 %%		Paketet fstil importerar några paket och gör ett antal nya		%%
 %%		kommandon tillgängliga, samt anpassar dokumentet till		%%
@@ -96,6 +97,9 @@
 \newtoggle{ChangeTheFont}
 \toggletrue{ChangeTheFont} %Per standard använder man den font som ingår, kan man inte installera den kan detta vara bra att använda
 
+\newtoggle{RemovePageNumbering}
+\togglefalse{RemovePageNumbering}
+
 % ======================== %
 %     TA HAND OM LOKALA OPTIONS          %
 % ======================== %
@@ -110,6 +114,9 @@
 }
 %Om man inte vill att fstil ska använda Garamond för att man tex inte kan installera den (MAC har problem med det)
 \DeclareOption{NoFontChange}{\togglefalse{ChangeTheFont}}
+
+% Tar bort sidnumrering
+\DeclareOption{NoPageNumbering}{\toggletrue{RemovePageNumbering}}
 
 \ProcessOptions
 %Ger ett package error om man skickar in fel option
@@ -532,7 +539,9 @@ Fyll i de fem rubrikerna ovan $\&$ fäst kvittot/fakturan synligt på baksidan.}
 \ifdefstring{\@date}{}{%Om @date är en tom sträng, skriv inte den raden
 }{%Annars skriv ut datumet
 \@date\\}
+\iftoggle{RemovePageNumbering}{}{%
 Sid. \thepage~ av { \pageref{LastPage}} }
+}
 }{}
 }
 \makeatother
