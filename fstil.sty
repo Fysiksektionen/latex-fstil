@@ -3,7 +3,6 @@
 %%		PAKETET FSTIL												%%
 %%																	%%
 %%		Skrivet av Tomas Lycken, F-08, under 2011					%%
-<<<<<<< HEAD
 %%		Uppdaterad av Tomas Lycken, F-08, 2011						%%
 %%		Uppdaterad av Emil Ringh, F-08, 2011						%%
 %%		Uppdaterad av Emil Ringh, F-08, 2012						%%
@@ -15,18 +14,6 @@
 %%		Uppdaterad av Anton Lu, F-15, 2017							%%
 %%		Uppdaterad av Gustav Gybäck, F-15, 2018						%%
 %% 		Uppdaterad av Jonas Nylund, F-13, 2019						%%
-=======
-%%		Senast uppdaterat av Tomas Lycken, F-08, 2011				%%
-%%		Senast uppdaterat av Emil Ringh, F-08, 2011					%%
-%%		Senast uppdaterat av Emil Ringh, F-08, 2012					%%
-%%		Senast uppdaterat av Emil Ringh, F-08, 2013					%%
-%%		Senast uppdaterat av Tomas Lycken, F-08, 2013				%%
-%%		Senast uppdaterat av Emil Ringh, F-08, 2014					%%
-%%		Senast uppdaterat av Mårten Vuorinen, F-12, 2016			%%
-%%		Senast uppdaterat av Johan Engvall, F-07, 2017				%%
-%%		Senast uppdaterat av Anton Lu, F-15, 2017					%%
-%%		Senast uppdaterad av Gustav Gybäck, F-15, 2018				%%
->>>>>>> 0f76611ef95c985f28ef03071112692d326ca250
 %%																	%%
 %%		Paketet fstil importerar några paket och gör ett antal nya	%%
 %%		kommandon tillgängliga, samt anpassar dokumentet till		%%
@@ -44,12 +31,8 @@
 % Med denna kommentar kan du kompilera den här filen i XeLaTeX, och programmet kommer fatta vilken fil du egentligen syftar på.
 
 % !TEX program = XeLaTeX
-<<<<<<< HEAD
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fstil}[2019/01/13 F-stil v1.16]
-=======
- \ProvidesPackage{fstil}
->>>>>>> 0f76611ef95c985f28ef03071112692d326ca250
 
 % ====================================== %
 %    	   PAKET SOM ANVÄNDS             %
@@ -105,12 +88,9 @@
 \newtoggle{IsLscape}
 \togglefalse{IsLscape} %Har portrait som default
 
-<<<<<<< HEAD
 \newtoggle{isA3}
 \togglefalse{isA3} %A4 är default
 
-=======
->>>>>>> 0f76611ef95c985f28ef03071112692d326ca250
 \newtoggle{DateTitle}
 \togglefalse{DateTitle} %Per standard har man inte med datumet i tideln
 
@@ -129,12 +109,9 @@
 \newtoggle{fkmDocument} % Ifall det är ett internt fkm* dokument
 \togglefalse{fkmDocument}
 
-<<<<<<< HEAD
 \newtoggle{frumDocument} % Som ovan, fast för FRum
 \togglefalse{frumDocument}
 
-=======
->>>>>>> 0f76611ef95c985f28ef03071112692d326ca250
 \newcommand{\titleImg}{kugghjul} % Definierar vilken bild som ska visas när \ftitlepage används.
 
 % ===================================== %
@@ -161,16 +138,6 @@
 \renewcommand{\titleImg}{kugghjul_fkm.pdf}%
 }
 
-<<<<<<< HEAD
-% Gör om layout enligt frum's grafiska profil
-\DeclareOption{frum}{%
-\toggletrue{frumDocument}%
-}
-
-\ProcessOptions\relax
-=======
-\ProcessOptions
->>>>>>> 0f76611ef95c985f28ef03071112692d326ca250
 %Ger ett package error om man skickar in fel option
 \DeclareOption*{%
 \PackageError{fstil}{The specified option `\CurrentOption' is not supported! \\ Kolla om du stavat fel eller titta i Guiden fstil.pdf om vilka options som fungerar.}%
@@ -181,7 +148,6 @@
 % ===================================== %
 
 %Sätter andra marginaler om klassen (.cls) laddas med 'landscape'
-<<<<<<< HEAD
 \DeclareOption{landscape}{
 \toggletrue{IsLscape}
 }
@@ -194,13 +160,6 @@
 %Ger tillgång till all options som klassen (.cls) laddas med
 %Gör också så att alla Options processas
 \ProcessOptions\relax
-=======
-\DeclareOption{landscape}{\toggletrue{IsLscape}}
-
-%Ger tillgång till all options som klassen (.cls) laddas med
-%Gör också så att alla Options processas
-\ProcessOptions
->>>>>>> 0f76611ef95c985f28ef03071112692d326ca250
 
 % ================================= %
 %     INSTÄLLNINGAR FÖR TOC         %
@@ -384,12 +343,6 @@
 %Definierar \FN => fn-logga
 \newcommand\FN{\ensuremath{\F_{\!_{{N}}}}}
 
-<<<<<<< HEAD
-%Definierar \FRum => \FRum-logga
-\newcommand{\FRum}{\raisebox{0.1ex}{\F}\raisebox{-0.2ex}{Rum}}
-
-=======
->>>>>>> 0f76611ef95c985f28ef03071112692d326ca250
 %Definierar \carlsven => Calle Svensson i överstruken text.
 \newcommand{\carlsven}{\strike{Calle Svensson}}
 
@@ -612,14 +565,11 @@ Fyll i de fem rubrikerna ovan $\&$ fäst kvittot/fakturan synligt på baksidan.}
  \setlength\logowidth{.55\headheight}
  \setlength\logoheight{\headheight}
 }
-<<<<<<< HEAD
 \iftoggle{isA3}{
 \addtolength\voffset{-1.5cm}
 \addtolength\textheight{2cm}
 }{
 }
-=======
->>>>>>> 0f76611ef95c985f28ef03071112692d326ca250
 \renewcommand\headrulewidth{0pt}
 
 
@@ -627,7 +577,6 @@ Fyll i de fem rubrikerna ovan $\&$ fäst kvittot/fakturan synligt på baksidan.}
 
 \fancyheadoffset[R]{.7\logowidth}
 
-<<<<<<< HEAD
 \iftoggle{fkmDocument}{
 	\newcommand\logoname{{fkmlogo.pdf}}
 }{
@@ -640,10 +589,6 @@ Fyll i de fem rubrikerna ovan $\&$ fäst kvittot/fakturan synligt på baksidan.}
 \iftoggle{IsLscape}{\biggerskip}{}
 \raisebox{-0.5\height}{\includegraphics[height=\logoheight]{\logoname}}\hspace{\logoxoffset}
 }
-=======
-\iftoggle{fkmDocument}{\newcommand\logoname{{fkmlogo.pdf}}}{\newcommand\logoname{{F_head_logo_noshadow}}}
-\rhead{\raisebox{-0.5\height}{\includegraphics[height=\logoheight]{\logoname}}\hspace{\logoxoffset}}
->>>>>>> 0f76611ef95c985f28ef03071112692d326ca250
 
 \makeatletter
 \lhead{%
@@ -670,11 +615,7 @@ Sid. \thepage~ av { \pageref{LastPage}} }
 \begin{center}
 \begin{tabular}{p{0.25\paperwidth}p{0.15\paperwidth}p{0.15\paperwidth}p{0.15\paperwidth}}
 Postadress: & Organisationsnummer: & Besöksadress: & Hemsida: \\
-<<<<<<< HEAD
  \F ysiksektionen, THS 100 44 Stockholm &   802411-8948 &   Brinellvägen 89  & { \href{http://f.kth.se}{f.kth.se} }
-=======
- \F ysiksektionen, THS 100 44 Stockholm &   802411-8948 &   Brinellvägen 89  & { \href{http://www.f.kth.se}{www.f.kth.se} }
->>>>>>> 0f76611ef95c985f28ef03071112692d326ca250
 \end{tabular}
 \end{center}
 }
