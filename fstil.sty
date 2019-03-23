@@ -138,6 +138,10 @@
 \renewcommand{\titleImg}{kugghjul_fkm.pdf}%
 }
 
+\DeclareOption{frum}{%
+\toggletrue{frumDocument}%
+}
+
 %Ger ett package error om man skickar in fel option
 \DeclareOption*{%
 \PackageError{fstil}{The specified option `\CurrentOption' is not supported! \\ Kolla om du stavat fel eller titta i Guiden fstil.pdf om vilka options som fungerar.}%
