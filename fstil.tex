@@ -42,7 +42,7 @@ Det går även att köra utan rätt teckensnitt om man använder sig av option \
 Installera typsnitten på din dator:
 \begin{itemize}
 \item[] Windows: Öppna kontrollpanelen, gå till \textit{Teckensnitt}/\textit{Fonts} och dra in .TTF-erna. Alternativt dubbelklicka på dem och tryck \textit{installera}/\textit{install} uppe till höger.
-\item[] Ubuntu:
+\item[] Ubuntu: Dubbelklicka och välj installera.
 \item[] Mac:
 \end{itemize}
 
@@ -75,7 +75,7 @@ fstil är inställt för att jobba med dokument encodade med \textit{utf8}. Se t
 \subsection{Allmänna kommandon}
 \begin{itemize}
 \item \texttt{\bs NoCaseChange\{TEXT som inte ska bli Caps i titeln\} }
-\item \texttt{\bs href\{http://www.f.kth.se\}\{länk till Fysiksektionens hemsida\} } ger mycket riktigt en  \href{http://www.f.kth.se}{länk till Fysiksektionens hemsida}. Observera färgen!
+\item \texttt{\bs href\{http://f.kth.se\}\{länk till Fysiksektionens hemsida\} } ger mycket riktigt en  \href{http://f.kth.se}{länk till Fysiksektionens hemsida}. Observera färgen!
 \end{itemize}
 
 \subsection{Speciellt för fstil}
@@ -121,6 +121,8 @@ Ett paket kan laddas med olika options, vilket görs när du deklarerar att du v
 \item \texttt{NoPageNumbering} tar bort sidnumreringen i sidhuvudet.
 
 \item \texttt{fkm} gör om dokumentet enligt \fkm s grafiska profil.
+
+\item \texttt{frum} ger dokumentet \F Rums logga i sidhuvudet.
 
 \end{itemize}
 
@@ -171,6 +173,8 @@ Här kan man skriva mer.
 \item Mars 2018. La till möjligheten att välja egen bild till titelsidan (\texttt{\bs ftitlepage[kugghjul.pdf]}). Skrivet av: Gustav Gybäck, (\F-15)
 \item Mars 2018. La till \fkm s grafisa profil. Skrivet av: Gustav Gybäck, (\F-15)
 \item Mars 2018. Flyttade ner det vänstra sidhuvudet i \texttt{landscape} så att titeln inte ligger på kanten. Skriven av: Gustav Gybäck, (\F-15)
+\item Januari 2019. Rättade webbadressen till den faktiskt korrekta, och fixade brevhuvudets placering med plain option i landskapsorientering. La till möjlighet att inkludera \F Rums logga i sidhuvudet likt tidigare ändring för \fkm . Detta för att enkelt kunna låta \F Rums interna poster-stil ärva hela f-stil. Skrivet av: Jonas Nylund (\F -13).
+
 \end{itemize}
 
 \clearpage
